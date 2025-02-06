@@ -47,6 +47,9 @@
         #gButton{
             display: none;
         }
+        .container{
+            display: none;
+        }
         #error{
             color: red;
             position: absolute;
@@ -77,6 +80,7 @@
 
             }   
         }
+
         @media (max-width:750px) {
             #type{
                 font-size: 3em;
@@ -90,41 +94,85 @@
         }
         @media (max-width:600px) {
             body{
-                min-height: 800px;
+                min-height: 100vh;
                 min-width: 100%;
                 margin: 0;
             }
             #type{
                 font-size: 3em;
-                top: 5%;
+                top: 0;
                 position: absolute;
                 height: fit-content;
             }
             #error{
                 font-size: 2em;
                 width: 100%;
-                top: 70%;
+                top: 40%;
             }
             #text{
-                top: 35%;
+                top: 15%;
             }
             #gButton{
                 display: block;
                 font-size: 3em;
                 position: absolute;
-                top: 55%;
+                top: 32%;
                 border: none;
                 padding: 10px 30px;
                 border-radius: 20px;
             }
+            .container{
+                display: grid;
+                grid-template-columns: repeat(3, 130px);
+                gap: 10px;
+                justify-content: center;
+                align-items: center;
+                position: absolute;
+                top: 47%;
+                width: fit-content;
+                
+                >button{
+                    width: 130px;
+                    height: 100px;
+                    font-size: 62px;
+                    font-weight: 500;
+                    background-color: lightblue;
+                    color: black;
+                    border: none;
+                    border-radius: 10px;
+                    outline: none;
+                }
+                >button:active{
+                    background-color: rgb(122, 187, 209);
+                }
+                >#b{
+                    background-color: #fff;
+                }
+            }
+
         }
     </style>
 </head>
 <body>
-    <h1 id="type">Guess a number between 1-20</h1>
+    <h1 id="type">Guess between 1-20</h1>
     <input type="text" id="text" autocomplete="off" maxlength="2">
     <h1 id="error"></h1>
     <button id="gButton">Guess</button>
+
+    <div class="container">
+        <button id="b1" onclick="appendValue('1')">1</button>
+        <button id="b2" onclick="appendValue('2')">2</button>
+        <button id="b3" onclick="appendValue('3')">3</button>
+        <button id="b4" onclick="appendValue('4')">4</button>
+        <button id="b5" onclick="appendValue('5')">5</button>
+        <button id="b6" onclick="appendValue('6')">6</button>
+        <button id="b7" onclick="appendValue('7')">7</button>
+        <button id="b8" onclick="appendValue('8')">8</button>
+        <button id="b9" onclick="appendValue('9')">9</button>
+        <button id="b"></button>
+        <button id="b0" onclick="appendValue('0')">0</button>
+
+    </div>
 
     
     <script>
@@ -136,6 +184,7 @@
         let r = Math.ceil(Math.random()*20)
         console.log(r);
         
+
 
         text.addEventListener("input" ,()=>{
             if (isNaN(text.value)) {
@@ -156,7 +205,7 @@
 
         function checkNumber(n) {
             if (n==r){
-                return "Congrads you have guessed correct 🎉"
+                return "You have guessed correct 🎉"
             }
             else if (n<r) {
                 return "Guess higher"
@@ -165,6 +214,12 @@
                 return "Guess lower"
             }
             return "error accured"
+        }
+
+        function appendValue(value){
+            if(text.value.length<2){
+                text.value+=value
+            }
         }
     
     </script>
