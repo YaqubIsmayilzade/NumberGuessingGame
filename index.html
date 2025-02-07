@@ -4,154 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-        *{
-            overflow: hidden;
-        }
-        
-        body{
-            margin: 0;
-            padding: 0;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            font-family: poppins;
-            width:100%;
-        }
-        input{
-            position: absolute;
-            caret-color: black;
-            outline: none;
-            background-color: lightblue;
-            border: none;
-            font-size: 4em;
-            padding: .2em .5em;
-            border-radius: 30px;
-            height: 100px;
-            width: 200px;
-            font-family: poppins;
-            text-align: center;
-        }
-        #type{
-            font-size: 4em;
-            position: absolute;
-            top: 20%;
-            text-align: center;
-            font-weight: 500;
-
-        }
-        #gButton{
-            display: none;
-        }
-        .container{
-            display: none;
-        }
-        #error{
-            color: red;
-            position: absolute;
-            top: 60%;
-            font-size: 20px;
-            font-weight: 300;
-            font-style: italic;
-            text-align: center;
-
-            animation: error .9s linear infinite;
-        }
-
-        @keyframes error {
-            0%{opacity: 0;}
-            50%{opacity: 1;}
-            100%{opacity: 0;}
-        }
-        
-        
-        
-        @media (max-width:1000px) {
-            #type{
-                font-size: 3em;
-                position: absolute;
-                top: 20%;
-                text-align: center;
-                font-weight: 500;
-
-            }   
-        }
-
-        @media (max-width:750px) {
-            #type{
-                font-size: 3em;
-                position: absolute;
-                top: 10%;
-                text-align: center;
-                font-weight: 500;
-                width: 500px;
-
-            }   
-        }
-        @media (max-width:600px) {
-            body{
-                min-height: 100vh;
-                min-width: 100%;
-                margin: 0;
-            }
-            #type{
-                font-size: 3em;
-                top: 0;
-                position: absolute;
-                height: fit-content;
-            }
-            #error{
-                font-size: 2em;
-                width: 100%;
-                top: 40%;
-            }
-            #text{
-                top: 15%;
-            }
-            #gButton{
-                display: block;
-                font-size: 3em;
-                position: absolute;
-                top: 32%;
-                border: none;
-                padding: 10px 30px;
-                border-radius: 20px;
-            }
-            .container{
-                display: grid;
-                grid-template-columns: repeat(3, 130px);
-                gap: 10px;
-                justify-content: center;
-                align-items: center;
-                position: absolute;
-                top: 47%;
-                width: fit-content;
-                
-                >button{
-                    width: 130px;
-                    height: 100px;
-                    font-size: 62px;
-                    font-weight: 500;
-                    background-color: lightblue;
-                    color: black;
-                    border: none;
-                    border-radius: 10px;
-                    outline: none;
-                }
-                >button:active{
-                    background-color: rgb(122, 187, 209);
-                }
-                >#b{
-                    background-color: #fff;
-                }
-            }
-
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
     <h1 id="type">Guess between 1-20</h1>
@@ -171,57 +25,13 @@
         <button id="b9" onclick="appendValue('9')">9</button>
         <button id="b"></button>
         <button id="b0" onclick="appendValue('0')">0</button>
+        <button onclick="appendValue('del')" id="backspace">
+            <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="black">
+                <path d="m456-320 104-104 104 104 56-56-104-104 104-104-56-56-104 104-104-104-56 56 104 104-104 104 56 56Zm-96 160q-19 0-36-8.5T296-192L80-480l216-288q11-15 28-23.5t36-8.5h440q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H360ZM180-480l180 240h440v-480H360L180-480Zm400 0Z"/>
+            </svg>
+        </button>
 
     </div>
 
-    
-    <script>
-        let text = document.getElementById("text")
-        let type = document.getElementById("type")
-        let error = document.getElementById("error")
-        let gButton = document.getElementById("gButton")
-
-        let r = Math.ceil(Math.random()*20)
-        console.log(r);
-        
-
-
-        text.addEventListener("input" ,()=>{
-            if (isNaN(text.value)) {
-                error.textContent="You can only enter numbers here"
-            }
-            else{
-                error.textContent=""
-            }
-        })
-
-        window.addEventListener("keydown" ,(e)=>{
-            if (e.code==="Enter"){
-                type.textContent= checkNumber(text.value)
-            } 
-        })
-
-        gButton.onclick = ()=> type.textContent= checkNumber(text.value)
-
-        function checkNumber(n) {
-            if (n==r){
-                return "You have guessed correct 🎉"
-            }
-            else if (n<r) {
-                return "Guess higher"
-            }
-            else if (n>r) {
-                return "Guess lower"
-            }
-            return "error accured"
-        }
-
-        function appendValue(value){
-            if(text.value.length<2){
-                text.value+=value
-            }
-        }
-    
-    </script>
 </body>
 </html>
